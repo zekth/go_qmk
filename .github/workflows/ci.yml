@@ -1,0 +1,29 @@
+name: Build
+on: ['push','pull_request']
+jobs:
+  install:
+    name: Install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/cache@v1
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      - uses: actions/checkout@v1
+      - name: Install Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.13.6
+      - name: Test
+        run: make test
+      - name: Build
+        run: make build
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Deploy script
+        run: |
+          echo build
