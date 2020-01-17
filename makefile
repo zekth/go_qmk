@@ -1,4 +1,4 @@
-VERSION=DEV
+VERSION=$(shell git describe --always --tags)
 BINARY:=dist/go_qmk
 
 ifeq ($(OS), Windows_NT)
