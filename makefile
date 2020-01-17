@@ -11,7 +11,7 @@ build:
 	go build -o $(BINARY) -ldflags "-s -w -X main.Version=$(VERSION)" ./src
 
 .PHONY: ci-build
-build:
+ci-build:
 	env GOARCH=amd64 GOOS=linux go build -o $(BINARY) -ldflags "-s -w -X main.Version=$(VERSION)" ./src
 
 .PHONY: test
