@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-
+	"github.com/gin-gonic/gin"
 	"github.com/gammazero/workerpool"
 )
 
@@ -15,4 +15,14 @@ func main() {
 		fmt.Println("Pooling")
 	})
 	wp.StopWait()
+	r := gin.Default()
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+			"version": Version
+		})
+	})
+
+	r.Static("/", "./ui")
+	r.Run()
 }
