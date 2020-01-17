@@ -17,7 +17,7 @@ jobs:
         with:
           go-version: 1.13.6
       - name: Test
-        run: make test
+        run: cd api && make test
       - name: Docker Build
         run: docker build -t go_qmk .
       - name: Release
@@ -26,8 +26,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: |
-            dist/go_qmk
           draft: true
       # - name: Deploy the Docker image to GitHub Package Registry
       #   if: startsWith(github.ref, 'refs/tags/') && github.repository == 'zekth/go_qmk'
