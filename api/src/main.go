@@ -8,6 +8,10 @@ import (
 
 var Version string
 
+func foo() {
+  fmt.Println("Bar")
+}
+
 func main() {
 	fmt.Println("Start")
 	wp := workerpool.New(2)
