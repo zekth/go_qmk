@@ -19,10 +19,10 @@ func main() {
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
-			"version": Version
+			"version": Version,
 		})
 	})
 
-	r.Static("/", "./ui")
+	r.Static("/ui", "./ui")
 	r.Run()
 }
