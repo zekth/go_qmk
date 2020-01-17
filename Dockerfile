@@ -1,6 +1,21 @@
-FROM golang
+# Clone Job
+# FixMe: Add parameter for master/branch ?
+FROM alpine/git as clone
+WORKDIR /
+RUN git clone https://github.com/zekth/go_qmk.git
 
-COPY dist/ /server/
+# Build job base on makefile
+FROM golang as builder
+COPY --from=clone /go_qmk /go_qmk
+WORKDIR /go_qmk
+RUN make ci-build
+
+# Runtime
+# FixMe: Add QMK
+FROM scratch
+COPY --from=builder /go_qmk/dist/ /server/
 WORKDIR /server/
 
-RUN /server/go-qmk
+EXPOSE 8080
+
+CMD ["/server/go_qmk"] 
