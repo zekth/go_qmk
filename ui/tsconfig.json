@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+      "outDir": "./dist/",
+      "sourceMap": true,
+      "strict": false,
+      "noImplicitReturns": true,
+      "experimentalDecorators": true,
+      "allowSyntheticDefaultImports": true,
+      "noImplicitAny": false,
+      "module": "es2015",
+      "moduleResolution": "node",
+      "target": "es5",
+      "lib": [
+          "dom",
+          "es5",
+          "es2015.promise"
+      ],
+      "baseUrl": ".",
+      "paths": {
+        "@/*": [
+          "src/*"
+        ]
+      }
+  },
+  "include": [
+      "./src/**/*"
+  ]
+}
