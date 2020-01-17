@@ -1,5 +1,5 @@
 VERSION=DEV
-BINARY:=dist/go-qmk
+BINARY:=dist/go_qmk
 
 ifeq ($(OS), Windows_NT)
 	BINARY:=$(BINARY).exe
@@ -8,7 +8,11 @@ endif
 
 .PHONY: build
 build:
-	go build -o $(BINARY) -ldflags "-s -w -X main.Version=$(VERSION)"  ./src
+	go build -o $(BINARY) -ldflags "-s -w -X main.Version=$(VERSION)" ./src
+
+.PHONY: ci-build
+build:
+	env GOARCH=amd64 GOOS=linux go build -o $(BINARY) -ldflags "-s -w -X main.Version=$(VERSION)" ./src
 
 .PHONY: test
 test: 
