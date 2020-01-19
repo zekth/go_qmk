@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/gammazero/workerpool"
 	"github.com/gin-gonic/gin"
 	"github.com/kelseyhightower/envconfig"
-	"github.com/zekth/go_qmk/api/src/controllers"
+	"github.com/zekth/go_qmk/api/internal/controllers"
 )
 
+// Version of the application. Githash
 var Version string
 
 func foo() {
@@ -21,8 +23,9 @@ func workerpoolInjector(w *workerpool.WorkerPool) gin.HandlerFunc {
 	}
 }
 
+// EnvVars Environent Variables
 type EnvVars struct {
-	WorkerNumber int `default:2`
+	WorkerNumber int `default:"2"`
 }
 
 func main() {

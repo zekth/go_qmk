@@ -13,11 +13,11 @@ init:
 
 .PHONY: build
 build:
-	go build -o $(BINARY) -ldflags "-s -w -X main.Version=$(VERSION)" ./src
+	go build -o $(BINARY) -ldflags "-s -w -X main.Version=$(VERSION)"
 
 .PHONY: ci-build
 ci-build:
-	env GOARCH=amd64 GOOS=linux CGO_ENABLED=0 go build -o $(BINARY) -ldflags "-s -w -X main.Version=$(VERSION)" ./src
+	env GOARCH=amd64 GOOS=linux CGO_ENABLED=0 go build -o $(BINARY) -ldflags "-s -w -X main.Version=$(VERSION)"
 
 .PHONY: test
 test:
@@ -25,7 +25,7 @@ test:
 
 .PHONY: lint
 lint:
-	golangci-lint run ./src
+	golangci-lint run
 
 # Hot reload
 .PHONY: dev
@@ -34,4 +34,4 @@ dev:
 
 .PHONY: run
 run:
-	go run ./src/main.go
+	go run main.go
