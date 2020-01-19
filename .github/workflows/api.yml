@@ -1,0 +1,30 @@
+name: Api testing
+
+on:
+  pull_request:
+    paths:
+      - api/**
+  push:
+    paths:
+      - api/**
+    branches:
+      - master
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v1
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      - name: Install Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.13.6
+      - name: Test Api
+        run: cd api && make test

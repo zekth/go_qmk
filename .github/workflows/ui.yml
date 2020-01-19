@@ -1,0 +1,34 @@
+name: UI testing
+
+on:
+  pull_request:
+    paths:
+      - ui/**
+  push:
+    paths:
+      - ui/**
+    branches:
+      - master
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v1
+        with:
+          path: ui/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+      - name: Use Node.js 10.16.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.16.0
+      - name: Install
+        run: cd ui && yarn
+      - name: Prettier
+        run: cd ui && yarn prettier
+      - name: Lint
+        run: cd ui && yarn lint
