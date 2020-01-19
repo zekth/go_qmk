@@ -6,7 +6,9 @@ import (
 	"github.com/gammazero/workerpool"
 	"github.com/gin-gonic/gin"
 	"github.com/kelseyhightower/envconfig"
-	"github.com/zekth/go_qmk/api/internal/controllers"
+	"github.com/zekth/go_qmk/api/internal/environment"
+	"github.com/zekth/go_qmk/api/internal/middlewares"
+	"github.com/zekth/go_qmk/api/internal/routes"
 )
 
 // Version of the application. Githash
@@ -16,21 +18,10 @@ func foo() {
 	fmt.Println("Bar")
 }
 
-func workerpoolInjector(w *workerpool.WorkerPool) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Set("worker", w)
-		c.Next()
-	}
-}
-
-// EnvVars Environent Variables
-type EnvVars struct {
-	WorkerNumber int `default:"2"`
-}
-
 func main() {
 	fmt.Println("Start:" + Version)
-	var env EnvVars
+	var env environment.EnvVars
+	env.Version = Version
 	if err := envconfig.Process("go_qmk", &env); err != nil {
 		fmt.Println("Unable to get env vars")
 	}
@@ -39,12 +30,15 @@ func main() {
 
 	r := gin.New()
 
+	// Middlewares usage
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
-	r.Use(workerpoolInjector(wp))
-	r.GET("/ping", controllers.Ping)
+	r.Use(middlewares.WorkerpoolInjector(wp))
+	r.Use(middlewares.EnvInjector(env))
 
-	r.Static("/ui", "./ui")
+	// routing
+	routes.MakeRoutes(r)
+
 	if err := r.Run(); err != nil {
 		fmt.Println("Fatal error")
 	}

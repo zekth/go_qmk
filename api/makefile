@@ -17,7 +17,7 @@ build:
 
 .PHONY: ci-build
 ci-build:
-	env GOARCH=amd64 GOOS=linux CGO_ENABLED=0 go build -o $(BINARY) -ldflags "-s -w -X main.Version=$(VERSION)"
+	env GOARCH=amd64 GOOS=linux CGO_ENABLED=0 GIN_MODE=release go build -o $(BINARY) -ldflags "-s -w -X main.Version=$(VERSION)"
 
 .PHONY: test
 test:
