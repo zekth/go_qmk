@@ -1,0 +1,16 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Mutation {}
+
+type Query {
+  listKeyboards(): [Keyboard]
+  getKeyboard(id: ID!): Keyboard
+}
+
+type Keyboard {
+  id: ID!
+  name: String!
+}

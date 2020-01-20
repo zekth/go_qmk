@@ -22,6 +22,7 @@ RUN yarn build
 # FixMe: Add QMK
 FROM scratch
 COPY --from=gobuilder /go_qmk_api/dist/ /server/
+COPY --from=gobuilder /go_qmk_api/schema.graphql /server/schema.graphql
 COPY --from=nodebuilder /go_qmk_ui/dist/ /server/ui/
 WORKDIR /server/
 EXPOSE 8080

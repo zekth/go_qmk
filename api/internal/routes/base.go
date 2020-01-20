@@ -4,6 +4,7 @@ import (
   "github.com/gin-gonic/gin"
   "github.com/gin-contrib/static"
 	"github.com/zekth/go_qmk/api/internal/controllers"
+	"github.com/zekth/go_qmk/api/internal/graphql"
 )
 
 // MakeRoutes Generate the base routes of the API
@@ -13,5 +14,9 @@ func MakeRoutes(r *gin.Engine) {
   api := r.Group("/api")
 	{
     api.GET("/ping", controllers.Ping)
+  }
+  g := r.Group("/graphql")
+  {
+    g.POST("",graphql.Handler())
   }
 }
