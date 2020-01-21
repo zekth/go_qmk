@@ -19,18 +19,14 @@ func (r *KeyboardResolver) ID() graphql.ID {
 	return r.k.ID
 }
 
-func (_ *Resolver) Keyboard() *KeyboardResolver {
-	return &KeyboardResolver{&keyboard{ID: "3", Name: "unikorn"}}
-}
-
-func (_ *Resolver) GetKeyboard(args struct{ ID graphql.ID }) *KeyboardResolver {
+func (_ *Resolver) Keyboard(args struct{ ID graphql.ID }) *KeyboardResolver {
 	if s := keyboardData[args.ID]; s != nil {
 		return &KeyboardResolver{s}
 	}
 	return nil
 }
 
-func (_ *Resolver) ListKeyboards() *[]*KeyboardResolver {
+func (_ *Resolver) Keyboards() *[]*KeyboardResolver {
 	var keebs []*KeyboardResolver
 	keebs = append(keebs, &KeyboardResolver{&keyboard{ID: "3", Name: "unikorn"}})
 	return &keebs

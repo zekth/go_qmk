@@ -3,11 +3,18 @@ schema {
   mutation: Mutation
 }
 
-type Mutation {}
+type Mutation {
+  compile() : String! # Compile the firmware
+}
 
 type Query {
-  listKeyboards(): [Keyboard]
-  getKeyboard(id: ID!): Keyboard
+  keyboards(): [Keyboard] # List all the available specific keyboards
+  keyboard(id: ID!): Keyboard # Get the keyboard
+  keymap(id: ID!): Keymaps # Get the specific keymap
+}
+
+type Keymaps {
+  id: ID!
 }
 
 type Keyboard {
