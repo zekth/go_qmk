@@ -1,6 +1,10 @@
 package graphql
 
-import graphql "github.com/graph-gophers/graphql-go"
+import (
+	"context"
+
+	graphql "github.com/graph-gophers/graphql-go"
+)
 
 type keymap struct {
 	ID graphql.ID
@@ -14,7 +18,6 @@ func (r *KeymapResolver) ID() graphql.ID {
 	return r.k.ID
 }
 
-func (_ *Resolver) Keymap(args struct{ ID graphql.ID }) *KeymapResolver {
-
+func (_ *Resolver) Keymap(ctx context.Context, args struct{ ID graphql.ID }) *KeymapResolver {
 	return &KeymapResolver{&keymap{ID: "666"}}
 }

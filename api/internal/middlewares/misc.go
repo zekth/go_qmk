@@ -3,6 +3,7 @@ package middlewares
 import (
 	"github.com/gammazero/workerpool"
 	"github.com/gin-gonic/gin"
+	"github.com/patrickmn/go-cache"
 	"github.com/zekth/go_qmk/api/internal/environment"
 )
 
@@ -18,6 +19,14 @@ func WorkerpoolInjector(w *workerpool.WorkerPool) gin.HandlerFunc {
 func EnvInjector(e environment.EnvVars) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Set("env", e)
+		c.Next()
+	}
+}
+
+// StorageInjector Inject the pointer of the storage provider
+func StorageInjector(s *cache.Cache) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Set("storage", s)
 		c.Next()
 	}
 }
