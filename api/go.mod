@@ -17,4 +17,5 @@ require (
 	github.com/ogier/pflag v0.0.1 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pkg/errors v0.8.0
+	github.com/prometheus/client_golang v0.9.3-0.20190127221311-3c4408c8b829
 )
